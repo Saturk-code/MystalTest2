@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystal | Вики</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Tektur:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* (стили остаются без изменений, как в предыдущей версии) */
+        :root {
+            --primary: #3a86ff;
+            --primary-light: #80b3ff;
+            --bg-light: #f0f7ff;
+            --text-dark: #1a4a6f;
+            --text-muted: #6c8ca1;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #fff 0%, #dbeeff 100%);
+        }
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.4s;
+        }
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 15px 8%;
+            border-bottom: 1px solid #d0e4f5;
+        }
+        .logo {
+            font-family: 'Tektur', sans-serif;
+            font-size: 26px;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--primary);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i { color: var(--primary-light); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .btn {
+            position: relative;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 30px rgba(58, 134, 255, 0.3);
+        }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(58, 134, 255, 0.3);
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 120px 24px 60px;
+        }
+        .page-title {
+            font-family: 'Tektur';
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+        }
+        .wiki-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .wiki-card {
+            background: var(--glass);
+            border: 1px solid #d0e4f5;
+            padding: 30px;
+            border-radius: 28px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+        .wiki-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-light);
+            background: rgba(255,255,255,0.95);
+        }
+        .wiki-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .wiki-card h3 {
+            font-family: 'Tektur';
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .wiki-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .wiki-detail {
+            background: var(--glass);
+            border: 1px solid #d0e4f5;
+            padding: 40px;
+            border-radius: 32px;
+            backdrop-filter: blur(8px);
+            margin-top: 30px;
+        }
+        .back-btn {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        footer {
+            padding: 60px 8%;
+            text-align: center;
+            background: #fff;
+            margin-top: 80px;
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .container { padding-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav id="navbar">
+    <a href="index.html" class="logo"><i class="fas fa-satellite"></i> MYSTAL</a>
+    <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="wiki.html">Вики</a>
+        <a href="rules.html">Правила</a>
+        <a href="team.html">Команда</a>
+    </div>
+    <a href="https://discord.gg/DSBdkCMn" class="btn btn-primary" style="padding: 10px 25px; font-size: 12px;"><i class="fab fa-discord"></i> Discord</a>
+</nav>
+
+<div class="container">
+    <h1 class="page-title" data-aos="fade-up"><i class="fas fa-book"></i> База знаний</h1>
+    <p class="page-subtitle" data-aos="fade-up" data-aos-delay="100">Всё, что нужно знать о сервере: команды, механики, особенности и гайды.</p>
+
+    <div id="wiki-list-view">
+        <div class="wiki-grid" id="wikiArticlesGrid"></div>
+    </div>
+
+    <div id="wiki-detail-view" style="display: none;">
+        <button id="backToWikiList" class="btn btn-outline back-btn" data-aos="fade-right"><i class="fas fa-arrow-left"></i> Назад к списку</button>
+        <div id="wikiDetailContent" class="wiki-detail" data-aos="fade-up"></div>
+    </div>
+</div>
+
+<footer data-aos="fade-up">
+    <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+        <i class="fas fa-satellite"></i> MYSTAL
+    </div>
+    <p style="opacity: 0.6; font-size: 14px;">© 2026 Mystal Blue Serenity. Все права защищены.<br>Не аффилировано с Mojang AB.</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/config.js"></script>
+<script src="js/wiki-data.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+    });
+
+    function renderWikiList() {
+        const grid = document.getElementById("wikiArticlesGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        wikiArticles.forEach((article, index) => {
+            const card = document.createElement("div");
+            card.className = "wiki-card";
+            card.setAttribute("data-aos", "fade-up");
+            card.setAttribute("data-aos-delay", index * 100);
+            card.innerHTML = `
+                <i class="fas fa-file-alt"></i>
+                <h3>${article.title}</h3>
+                <p>${article.summary}</p>
+                <div style="margin-top: 20px;"><span class="btn btn-outline" style="padding: 8px 20px;">Читать →</span></div>
+            `;
+            card.addEventListener("click", () => showWikiArticle(article.id));
+            grid.appendChild(card);
+        });
+        // Переинициализация AOS для новых элементов
+        AOS.refresh();
+    }
+
+    function showWikiArticle(articleId) {
+        const article = wikiArticles.find(a => a.id === articleId);
+        if (!article) return;
+        document.getElementById("wikiDetailContent").innerHTML = article.content;
+        document.getElementById("wiki-list-view").style.display = "none";
+        document.getElementById("wiki-detail-view").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        AOS.refresh();
+    }
+
+    function backToWikiList() {
+        document.getElementById("wiki-list-view").style.display = "block";
+        document.getElementById("wiki-detail-view").style.display = "none";
+        AOS.refresh();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        renderWikiList();
+        document.getElementById("backToWikiList").addEventListener("click", backToWikiList);
+    });
+
+    // Частицы
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let dots = [];
+    function initParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        dots = [];
+        for(let i=0; i<50; i++) {
+            dots.push({x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random()*3, v: Math.random()*0.5+0.2});
+        }
+    }
+    function animateParticles() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(128, 179, 255, 0.2)";
+        dots.forEach(d => {
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+            ctx.fill();
+            d.y -= d.v;
+            if(d.y < 0) d.y = canvas.height;
+        });
+        requestAnimationFrame(animateParticles);
+    }
+    window.addEventListener('resize', initParticles);
+    initParticles();
+    animateParticles();
+</script>
+</body>
+</html>
